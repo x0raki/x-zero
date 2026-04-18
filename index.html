@@ -37,6 +37,9 @@
         min-height: 100vh;
         font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
         color: var(--text);
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         background:
           linear-gradient(180deg, rgba(255, 255, 255, 0.25), transparent 24%),
           radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.92), transparent 24rem),
@@ -76,7 +79,7 @@
         justify-content: space-between;
         gap: 16px;
         padding: 4px 4px 18px;
-        color: var(--muted);
+        color: #655d54;
         font-size: 0.94rem;
         letter-spacing: 0.02em;
       }
@@ -125,17 +128,17 @@
       h1 {
         margin: 0;
         font-family: "Hiragino Mincho ProN", "Noto Serif JP", serif;
-        font-size: clamp(2.8rem, 8vw, 5.8rem);
-        line-height: 0.95;
+        font-size: clamp(2.7rem, 6.8vw, 5rem);
+        line-height: 0.98;
         letter-spacing: -0.04em;
       }
 
       .lead {
         max-width: 36rem;
         margin: 24px 0 0;
-        color: var(--muted);
-        font-size: clamp(1rem, 2.1vw, 1.18rem);
-        line-height: 1.95;
+        color: #5d554b;
+        font-size: clamp(1.04rem, 1.9vw, 1.16rem);
+        line-height: 1.9;
       }
 
       .actions {
@@ -153,6 +156,8 @@
         padding: 0 18px;
         border-radius: 999px;
         border: 1px solid transparent;
+        font-size: 0.96rem;
+        font-weight: 600;
         text-decoration: none;
         transition:
           transform 160ms ease,
@@ -177,9 +182,9 @@
 
       .hero-note {
         margin-top: 18px;
-        color: var(--muted);
-        font-size: 0.96rem;
-        line-height: 1.8;
+        color: #5d554b;
+        font-size: 0.98rem;
+        line-height: 1.85;
       }
 
       .hero-note code {
@@ -196,8 +201,9 @@
         padding: 16px 18px;
         border: 1px solid rgba(157, 78, 49, 0.18);
         border-radius: 18px;
-        background: rgba(255, 248, 242, 0.72);
+        background: rgba(255, 248, 242, 0.84);
         color: var(--text);
+        font-size: 0.98rem;
         line-height: 1.85;
       }
 
@@ -319,8 +325,8 @@
       .sheet-main p {
         max-width: 28rem;
         margin: 18px 0 0;
-        color: var(--muted);
-        line-height: 1.9;
+        color: #5f574d;
+        line-height: 1.82;
       }
 
       .file-list {
@@ -356,14 +362,14 @@
 
       .file-row span {
         display: block;
-        color: var(--muted);
+        color: #625a51;
         line-height: 1.7;
         font-size: 0.94rem;
       }
 
       .sections {
         display: grid;
-        gap: 56px;
+        gap: 44px;
         padding-top: 24px;
       }
 
@@ -388,7 +394,7 @@
 
       .section-body p {
         margin: 0 0 12px;
-        line-height: 1.95;
+        line-height: 1.88;
       }
 
       .steps {
@@ -538,7 +544,8 @@
           <p class="lead">
             グループチャットの ChatGPT に追加で見せたい背景や判断ルールを、
             公開メモとして静かに置いておくためのページです。主役は
-            <code>memo.txt</code>。人向けの説明は、必要なぶんだけ横に添えます。
+            <code>memo.txt</code>。今は現在のカスタム指示をそのまま収録していて、
+            人向けの説明は必要なぶんだけ横に添えます。
           </p>
 
           <div class="actions">
@@ -548,7 +555,7 @@
 
           <p class="hero-note">
             共有するときは
-            <code>https://&lt;user&gt;.github.io/&lt;repo&gt;/memo.txt</code>
+            <code>https://x0raki.github.io/x-zero/memo.txt</code>
             をそのまま渡して、「必要ならこの公開メモも参照して」と添えるだけで足ります。
           </p>
 
@@ -572,8 +579,8 @@
                 <h2>memo.txt</h2>
                 <span class="path">/x-zero/memo.txt</span>
                 <p>
-                  ChatGPT に渡す入口をひとつに絞る。説明を増やすより、
-                  見てほしい前提を短く置く。そのための、軽い公開面です。
+                  ChatGPT に渡す入口をひとつに絞る。今は現在のカスタム指示を入れていて、
+                  見てほしい前提をそのまま短く置くための公開面です。
                 </p>
               </div>
 
@@ -582,14 +589,14 @@
                   <div class="file-kind">primary</div>
                   <div>
                     <a href="./memo.txt"><strong>memo.txt</strong></a>
-                    <span>AI にそのまま渡しやすいプレーンテキスト版</span>
+                    <span>AI にそのまま渡しやすい、現在のカスタム指示入りプレーンテキスト版</span>
                   </div>
                 </div>
                 <div class="file-row">
                   <div class="file-kind">source</div>
                   <div>
                     <a href="./memo.md"><strong>memo.md</strong></a>
-                    <span>人が読み書きしやすい Markdown 版</span>
+                    <span>人が読み書きしやすい、同内容の Markdown 版</span>
                   </div>
                 </div>
                 <div class="file-row">
@@ -610,17 +617,17 @@
           <div class="section-title">How It Works</div>
           <div class="section-body">
             <p>
-              このページの役割は、立派なサイトを作ることではありません。ChatGPT
-              が参照すべき補助情報の置き場を、ぶれずに保つことです。だから構成も、
-              「入口」「本文」「編集元」の三つに絞っています。
+              やっていることは単純で、ChatGPT が参照すべき補助情報の置き場を
+              ぶれずに保つだけです。今は現在のカスタム指示を、
+              「入口」「本文」「編集元」の三つで見せています。
             </p>
             <div class="steps">
               <div class="step">
                 <div class="step-number">1</div>
                 <div>
-                  <strong>前提を書く</strong><br />
-                  用語、背景、判断ルール、公開リンクだけを
-                  <code>memo.txt</code> に短く置く
+                  <strong>前提を置く</strong><br />
+                  今のカスタム指示や共有したい前提を
+                  <code>memo.txt</code> にそのまま入れる
                 </div>
               </div>
               <div class="step">
@@ -628,14 +635,7 @@
                 <div>
                   <strong>URL を共有する</strong><br />
                   グループチャットには
-                  <code>.../memo.txt</code> をそのまま渡す
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-number">3</div>
-                <div>
-                  <strong>更新は静かに続ける</strong><br />
-                  内容が変わったら push するだけ。入口は変えない
+                  <code>https://x0raki.github.io/x-zero/memo.txt</code> をそのまま渡す
                 </div>
               </div>
             </div>
@@ -646,11 +646,10 @@
           <div class="section-title">Primary Link</div>
           <div class="section-body">
             <p>
-              実際に共有したいのは、たぶんこの一行です。Pages 公開後は自分の URL
-              に置き換えて使えます。
+              実際に共有したいのはこの一行です。今の公開先なら、この URL をそのまま使えます。
             </p>
-            <a class="mono-link" href="./memo.txt"
-              >https://&lt;user&gt;.github.io/&lt;repo&gt;/memo.txt</a
+            <a class="mono-link" href="https://x0raki.github.io/x-zero/memo.txt"
+              >https://x0raki.github.io/x-zero/memo.txt</a
             >
           </div>
         </section>
