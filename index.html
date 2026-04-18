@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>x-zero helper memo</title>
+    <meta
+      name="description"
+      content="グループチャットの ChatGPT から参照しやすい公開補助メモです。"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f2ea;
+        --card: #fffdf8;
+        --text: #1d1b18;
+        --muted: #6a6258;
+        --line: #d8cec0;
+        --accent: #a24b2a;
+        --accent-soft: #f3dfd3;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+        background:
+          radial-gradient(circle at top left, #fff8ec 0, transparent 28rem),
+          linear-gradient(180deg, #f7f1e7 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+
+      main {
+        width: min(860px, calc(100% - 32px));
+        margin: 48px auto;
+        padding: 32px;
+        background: color-mix(in srgb, var(--card) 92%, white 8%);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(72, 56, 39, 0.08);
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        line-height: 1.1;
+      }
+
+      p {
+        line-height: 1.8;
+        margin: 0 0 16px;
+      }
+
+      .lead {
+        font-size: 1.08rem;
+        color: var(--muted);
+      }
+
+      .links {
+        display: grid;
+        gap: 12px;
+        margin: 28px 0;
+      }
+
+      a.card {
+        display: block;
+        padding: 16px 18px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        text-decoration: none;
+        color: inherit;
+        background: var(--card);
+        transition:
+          transform 140ms ease,
+          border-color 140ms ease,
+          background 140ms ease;
+      }
+
+      a.card:hover {
+        transform: translateY(-1px);
+        border-color: var(--accent);
+        background: #fffaf5;
+      }
+
+      .label {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+      }
+
+      code {
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        background: #f2ede5;
+        padding: 0.15em 0.35em;
+        border-radius: 6px;
+      }
+
+      footer {
+        margin-top: 28px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="label">Public Helper Memo</div>
+      <h1>グループチャット向けの補助メモ</h1>
+      <p class="lead">
+        このリポジトリは、GitHub Pages で公開するための最小サイトです。人が読む入口と、
+        ChatGPT がそのまま参照しやすい素のテキストを同じ場所に置いています。
+      </p>
+
+      <div class="links">
+        <a class="card" href="./memo.txt">
+          <strong>memo.txt</strong><br />
+          ChatGPT から渡しやすい、プレーンテキスト版。
+        </a>
+        <a class="card" href="./memo.md">
+          <strong>memo.md</strong><br />
+          人が編集しやすい Markdown 版。内容の元ファイルとして使えます。
+        </a>
+      </div>
+
+      <p>
+        グループチャットでは、
+        <code>https://&lt;user&gt;.github.io/&lt;repo&gt;/memo.txt</code>
+        を共有して、「必要ならこの公開メモも参照して」と添える運用がいちばん単純です。
+      </p>
+
+      <footer>
+        内容を更新したいときは <code>memo.md</code> と <code>memo.txt</code>
+        を直して push するだけです。
+      </footer>
+    </main>
+  </body>
+  </html>

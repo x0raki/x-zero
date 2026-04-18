@@ -1,0 +1,9 @@
+# x-zero helper memo
+
+This is a public helper memo for ChatGPT in a group chat.
+
+Primary reference:
+- /memo.txt
+
+Human-editable source:
+- /memo.md
