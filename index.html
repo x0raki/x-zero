@@ -6,142 +6,660 @@
     <title>x-zero helper memo</title>
     <meta
       name="description"
-      content="グループチャットの ChatGPT から参照しやすい公開補助メモです。"
+      content="グループチャットの ChatGPT が参照しやすい公開補助メモです。"
     />
     <style>
       :root {
         color-scheme: light;
-        --bg: #f5f2ea;
-        --card: #fffdf8;
-        --text: #1d1b18;
-        --muted: #6a6258;
-        --line: #d8cec0;
-        --accent: #a24b2a;
-        --accent-soft: #f3dfd3;
+        --bg: #f4efe6;
+        --paper: rgba(255, 252, 246, 0.88);
+        --paper-strong: #fffdf8;
+        --line: rgba(91, 77, 60, 0.18);
+        --text: #1d1a16;
+        --muted: #6f675d;
+        --accent: #9d4e31;
+        --accent-soft: rgba(157, 78, 49, 0.12);
+        --mint: rgba(167, 193, 183, 0.24);
+        --sky: rgba(171, 205, 223, 0.26);
+        --shadow: 0 20px 60px rgba(81, 62, 44, 0.08);
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         margin: 0;
         min-height: 100vh;
         font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
-        background:
-          radial-gradient(circle at top left, #fff8ec 0, transparent 28rem),
-          linear-gradient(180deg, #f7f1e7 0%, var(--bg) 100%);
         color: var(--text);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.25), transparent 24%),
+          radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.92), transparent 24rem),
+          radial-gradient(circle at 84% 20%, var(--sky), transparent 26rem),
+          radial-gradient(circle at 72% 78%, var(--mint), transparent 24rem),
+          linear-gradient(180deg, #eef5f8 0%, #f7f0e6 18%, var(--bg) 100%);
       }
 
-      main {
-        width: min(860px, calc(100% - 32px));
-        margin: 48px auto;
-        padding: 32px;
-        background: color-mix(in srgb, var(--card) 92%, white 8%);
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        box-shadow: 0 20px 60px rgba(72, 56, 39, 0.08);
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image: linear-gradient(
+          to bottom,
+          rgba(120, 102, 85, 0.06) 0,
+          rgba(120, 102, 85, 0.06) 1px,
+          transparent 1px,
+          transparent 36px
+        );
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.26), transparent 80%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 56px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 4px 4px 18px;
+        color: var(--muted);
+        font-size: 0.94rem;
+        letter-spacing: 0.02em;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-mark {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 8px rgba(157, 78, 49, 0.08);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        gap: 32px;
+        align-items: end;
+        min-height: calc(100svh - 112px);
+        padding: 20px 0 28px;
+      }
+
+      .hero-copy {
+        max-width: 620px;
+        animation: rise 700ms ease both;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 16px;
+        padding: 6px 10px;
+        border: 1px solid rgba(157, 78, 49, 0.18);
+        border-radius: 999px;
+        background: rgba(255, 252, 248, 0.68);
+        color: var(--accent);
+        font-size: 0.84rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
       }
 
       h1 {
-        margin: 0 0 16px;
-        font-size: clamp(2rem, 5vw, 3.2rem);
-        line-height: 1.1;
-      }
-
-      p {
-        line-height: 1.8;
-        margin: 0 0 16px;
+        margin: 0;
+        font-family: "Hiragino Mincho ProN", "Noto Serif JP", serif;
+        font-size: clamp(2.8rem, 8vw, 5.8rem);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
       }
 
       .lead {
-        font-size: 1.08rem;
+        max-width: 36rem;
+        margin: 24px 0 0;
         color: var(--muted);
+        font-size: clamp(1rem, 2.1vw, 1.18rem);
+        line-height: 1.95;
       }
 
-      .links {
-        display: grid;
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
         gap: 12px;
-        margin: 28px 0;
+        margin-top: 30px;
       }
 
-      a.card {
-        display: block;
-        padding: 16px 18px;
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        text-decoration: none;
-        color: inherit;
-        background: var(--card);
-        transition:
-          transform 140ms ease,
-          border-color 140ms ease,
-          background 140ms ease;
-      }
-
-      a.card:hover {
-        transform: translateY(-1px);
-        border-color: var(--accent);
-        background: #fffaf5;
-      }
-
-      .label {
-        display: inline-block;
-        padding: 4px 8px;
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 18px;
         border-radius: 999px;
-        background: var(--accent-soft);
-        color: var(--accent);
-        font-size: 0.85rem;
-        margin-bottom: 8px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        transition:
+          transform 160ms ease,
+          background 160ms ease,
+          border-color 160ms ease;
       }
 
-      code {
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button-primary {
+        background: var(--text);
+        color: #fffdf8;
+        box-shadow: 0 10px 30px rgba(29, 26, 22, 0.14);
+      }
+
+      .button-secondary {
+        background: rgba(255, 252, 246, 0.62);
+        border-color: var(--line);
+      }
+
+      .hero-note {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 0.96rem;
+        line-height: 1.8;
+      }
+
+      .hero-note code {
         font-family: "SFMono-Regular", "Menlo", monospace;
-        background: #f2ede5;
-        padding: 0.15em 0.35em;
+        font-size: 0.92em;
+        background: rgba(255, 250, 243, 0.8);
+        padding: 0.15em 0.4em;
         border-radius: 6px;
       }
 
+      .privacy-note {
+        max-width: 34rem;
+        margin-top: 18px;
+        padding: 16px 18px;
+        border: 1px solid rgba(157, 78, 49, 0.18);
+        border-radius: 18px;
+        background: rgba(255, 248, 242, 0.72);
+        color: var(--text);
+        line-height: 1.85;
+      }
+
+      .privacy-note strong {
+        display: inline-block;
+        margin-bottom: 6px;
+        color: var(--accent);
+        font-size: 0.94rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .visual {
+        position: relative;
+        min-height: 520px;
+        animation: drift 9s ease-in-out infinite alternate;
+      }
+
+      .visual::before,
+      .visual::after {
+        content: "";
+        position: absolute;
+        inset: auto;
+        border-radius: 50%;
+        filter: blur(6px);
+      }
+
+      .visual::before {
+        width: 180px;
+        height: 180px;
+        top: 40px;
+        right: 20px;
+        background: rgba(255, 232, 212, 0.85);
+      }
+
+      .visual::after {
+        width: 210px;
+        height: 210px;
+        left: 8px;
+        bottom: 10px;
+        background: rgba(183, 212, 203, 0.52);
+      }
+
+      .sheet {
+        position: absolute;
+        inset: 36px 14px 0 48px;
+        overflow: hidden;
+        border: 1px solid rgba(93, 78, 58, 0.16);
+        border-radius: 30px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 252, 247, 0.94)),
+          var(--paper);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+
+      .sheet::before {
+        content: "";
+        position: absolute;
+        inset: 26px 24px auto 24px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(61, 49, 37, 0.18), transparent);
+      }
+
+      .sheet-inner {
+        position: relative;
+        display: grid;
+        height: 100%;
+        padding: 28px 24px 24px;
+      }
+
+      .sheet-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .sheet-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .sheet-label::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .sheet-main {
+        align-self: center;
+      }
+
+      .sheet-main h2 {
+        margin: 0 0 16px;
+        font-family: "Hiragino Mincho ProN", "Noto Serif JP", serif;
+        font-size: clamp(2rem, 5vw, 3.4rem);
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+
+      .path {
+        display: inline-block;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(93, 78, 58, 0.14);
+        background: rgba(255, 250, 243, 0.82);
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        font-size: 0.93rem;
+      }
+
+      .sheet-main p {
+        max-width: 28rem;
+        margin: 18px 0 0;
+        color: var(--muted);
+        line-height: 1.9;
+      }
+
+      .file-list {
+        align-self: end;
+        display: grid;
+        gap: 14px;
+      }
+
+      .file-row {
+        display: grid;
+        grid-template-columns: 108px minmax(0, 1fr);
+        gap: 14px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(93, 78, 58, 0.12);
+      }
+
+      .file-kind {
+        color: var(--muted);
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .file-row a {
+        text-decoration: none;
+      }
+
+      .file-row strong {
+        display: inline-block;
+        margin-bottom: 6px;
+        font-size: 1rem;
+      }
+
+      .file-row span {
+        display: block;
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 0.94rem;
+      }
+
+      .sections {
+        display: grid;
+        gap: 56px;
+        padding-top: 24px;
+      }
+
+      .section {
+        display: grid;
+        grid-template-columns: 200px minmax(0, 1fr);
+        gap: 24px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(93, 78, 58, 0.14);
+      }
+
+      .section-title {
+        color: var(--muted);
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .section-body {
+        max-width: 760px;
+      }
+
+      .section-body p {
+        margin: 0 0 12px;
+        line-height: 1.95;
+      }
+
+      .steps {
+        display: grid;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+      }
+
+      .step-number {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(29, 26, 22, 0.08);
+        font-size: 0.86rem;
+      }
+
+      .mono-link {
+        display: inline-block;
+        margin-top: 6px;
+        padding-bottom: 2px;
+        border-bottom: 1px solid rgba(29, 26, 22, 0.22);
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        font-size: 0.96rem;
+        text-decoration: none;
+      }
+
+      .mono-link:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
       footer {
-        margin-top: 28px;
-        padding-top: 20px;
-        border-top: 1px solid var(--line);
+        margin-top: 56px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(93, 78, 58, 0.14);
         color: var(--muted);
         font-size: 0.95rem;
+        line-height: 1.8;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes drift {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-8px);
+        }
+      }
+
+      @media (max-width: 920px) {
+        .hero,
+        .section {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 10px;
+        }
+
+        .visual {
+          min-height: 460px;
+        }
+
+        .sheet {
+          inset: 20px 0 0;
+        }
+
+        .section {
+          gap: 14px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100%, calc(100% - 20px));
+          padding-top: 12px;
+        }
+
+        .topbar {
+          padding-bottom: 8px;
+          font-size: 0.88rem;
+        }
+
+        .visual {
+          min-height: 400px;
+        }
+
+        .sheet {
+          border-radius: 24px;
+        }
+
+        .sheet-main h2 {
+          font-size: 2rem;
+        }
+
+        .file-row {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .button {
+          justify-content: center;
+        }
       }
     </style>
   </head>
   <body>
-    <main>
-      <div class="label">Public Helper Memo</div>
-      <h1>グループチャット向けの補助メモ</h1>
-      <p class="lead">
-        このリポジトリは、GitHub Pages で公開するための最小サイトです。人が読む入口と、
-        ChatGPT がそのまま参照しやすい素のテキストを同じ場所に置いています。
-      </p>
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>x-zero / public helper memo</span>
+        </div>
+        <span>GitHub Pages</span>
+      </header>
 
-      <div class="links">
-        <a class="card" href="./memo.txt">
-          <strong>memo.txt</strong><br />
-          ChatGPT から渡しやすい、プレーンテキスト版。
-        </a>
-        <a class="card" href="./memo.md">
-          <strong>memo.md</strong><br />
-          人が編集しやすい Markdown 版。内容の元ファイルとして使えます。
-        </a>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">For Group Chat</div>
+          <h1>説明より先に、<br />前提を置く。</h1>
+          <p class="lead">
+            グループチャットの ChatGPT に追加で見せたい背景や判断ルールを、
+            公開メモとして静かに置いておくためのページです。主役は
+            <code>memo.txt</code>。人向けの説明は、必要なぶんだけ横に添えます。
+          </p>
+
+          <div class="actions">
+            <a class="button button-primary" href="./memo.txt">memo.txt を開く</a>
+            <a class="button button-secondary" href="./memo.md">編集元を見る</a>
+          </div>
+
+          <p class="hero-note">
+            共有するときは
+            <code>https://&lt;user&gt;.github.io/&lt;repo&gt;/memo.txt</code>
+            をそのまま渡して、「必要ならこの公開メモも参照して」と添えるだけで足ります。
+          </p>
+
+          <div class="privacy-note">
+            <strong>Public Note</strong><br />
+            友人にも見せる前提の公開ページです。プライベートな情報を書くなら、
+            その内容が公開されても問題ない範囲にとどめてください。個人情報、
+            非公開リンク、内輪だけの事情は載せないのが安全です。
+          </div>
+        </div>
+
+        <div class="visual" aria-hidden="true">
+          <div class="sheet">
+            <div class="sheet-inner">
+              <div class="sheet-top">
+                <span class="sheet-label">open reference</span>
+                <span>public / plain text</span>
+              </div>
+
+              <div class="sheet-main">
+                <h2>memo.txt</h2>
+                <span class="path">/x-zero/memo.txt</span>
+                <p>
+                  ChatGPT に渡す入口をひとつに絞る。説明を増やすより、
+                  見てほしい前提を短く置く。そのための、軽い公開面です。
+                </p>
+              </div>
+
+              <div class="file-list">
+                <div class="file-row">
+                  <div class="file-kind">primary</div>
+                  <div>
+                    <a href="./memo.txt"><strong>memo.txt</strong></a>
+                    <span>AI にそのまま渡しやすいプレーンテキスト版</span>
+                  </div>
+                </div>
+                <div class="file-row">
+                  <div class="file-kind">source</div>
+                  <div>
+                    <a href="./memo.md"><strong>memo.md</strong></a>
+                    <span>人が読み書きしやすい Markdown 版</span>
+                  </div>
+                </div>
+                <div class="file-row">
+                  <div class="file-kind">index</div>
+                  <div>
+                    <a href="./llms.txt"><strong>llms.txt</strong></a>
+                    <span>AI 向けに参照先を短く案内する補助ファイル</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="sections">
+        <section class="section">
+          <div class="section-title">How It Works</div>
+          <div class="section-body">
+            <p>
+              このページの役割は、立派なサイトを作ることではありません。ChatGPT
+              が参照すべき補助情報の置き場を、ぶれずに保つことです。だから構成も、
+              「入口」「本文」「編集元」の三つに絞っています。
+            </p>
+            <div class="steps">
+              <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                  <strong>前提を書く</strong><br />
+                  用語、背景、判断ルール、公開リンクだけを
+                  <code>memo.txt</code> に短く置く
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                  <strong>URL を共有する</strong><br />
+                  グループチャットには
+                  <code>.../memo.txt</code> をそのまま渡す
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                  <strong>更新は静かに続ける</strong><br />
+                  内容が変わったら push するだけ。入口は変えない
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">Primary Link</div>
+          <div class="section-body">
+            <p>
+              実際に共有したいのは、たぶんこの一行です。Pages 公開後は自分の URL
+              に置き換えて使えます。
+            </p>
+            <a class="mono-link" href="./memo.txt"
+              >https://&lt;user&gt;.github.io/&lt;repo&gt;/memo.txt</a
+            >
+          </div>
+        </section>
       </div>
 
-      <p>
-        グループチャットでは、
-        <code>https://&lt;user&gt;.github.io/&lt;repo&gt;/memo.txt</code>
-        を共有して、「必要ならこの公開メモも参照して」と添える運用がいちばん単純です。
-      </p>
-
       <footer>
-        内容を更新したいときは <code>memo.md</code> と <code>memo.txt</code>
-        を直して push するだけです。
+        機密情報や個人情報は置かないでください。ここは「補助メモの公開面」であって、
+        秘密の設定ファイルではありません。
       </footer>
-    </main>
+    </div>
   </body>
   </html>
