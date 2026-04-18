@@ -148,6 +148,13 @@
         margin-top: 30px;
       }
 
+      .copy-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
       .button {
         display: inline-flex;
         align-items: center;
@@ -178,6 +185,25 @@
       .button-secondary {
         background: rgba(255, 252, 246, 0.62);
         border-color: var(--line);
+      }
+
+      .button-copy {
+        cursor: pointer;
+        background: rgba(255, 252, 246, 0.82);
+        border-color: rgba(93, 78, 58, 0.18);
+        color: #403830;
+      }
+
+      .button-copy:hover {
+        border-color: rgba(157, 78, 49, 0.28);
+      }
+
+      .copy-status {
+        min-height: 1.6em;
+        margin-top: 10px;
+        color: #5d554b;
+        font-size: 0.93rem;
+        line-height: 1.6;
       }
 
       .hero-note {
@@ -361,9 +387,16 @@
         text-decoration: none;
       }
 
+      .file-row-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+
       .file-row strong {
         display: inline-block;
-        margin-bottom: 6px;
         font-size: 1.06rem;
       }
 
@@ -372,6 +405,18 @@
         color: #585046;
         line-height: 1.65;
         font-size: 0.97rem;
+      }
+
+      .mini-copy {
+        flex: 0 0 auto;
+        padding: 6px 10px;
+        border: 1px solid rgba(93, 78, 58, 0.16);
+        border-radius: 999px;
+        background: rgba(255, 252, 246, 0.88);
+        color: #5b5248;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
       }
 
       .sections {
@@ -531,6 +576,16 @@
         .button {
           justify-content: center;
         }
+
+        .copy-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .file-row-head {
+          flex-direction: column;
+          align-items: flex-start;
+        }
       }
     </style>
   </head>
@@ -559,6 +614,20 @@
             <a class="button button-primary" href="./memo.txt">memo.txt を開く</a>
             <a class="button button-secondary" href="./memo.md">編集元を見る</a>
           </div>
+
+          <div class="copy-actions">
+            <button class="button button-copy" type="button" data-copy-src="./memo.txt">
+              memo.txt をコピー
+            </button>
+            <button
+              class="button button-copy"
+              type="button"
+              data-copy-src="./custom-instructions.txt"
+            >
+              カスタム指示全文をコピー
+            </button>
+          </div>
+          <div class="copy-status" id="copy-status" aria-live="polite"></div>
 
           <p class="hero-note">
             共有するときは
@@ -595,7 +664,10 @@
                 <div class="file-row">
                   <div class="file-kind">primary</div>
                   <div>
-                    <a href="./memo.txt"><strong>memo.txt</strong></a>
+                    <div class="file-row-head">
+                      <a href="./memo.txt"><strong>memo.txt</strong></a>
+                      <button class="mini-copy" type="button" data-copy-src="./memo.txt">コピー</button>
+                    </div>
                     <span>AI にそのまま渡しやすい、軽い補助メモのプレーンテキスト版</span>
                   </div>
                 </div>
@@ -609,7 +681,16 @@
                 <div class="file-row">
                   <div class="file-kind">archive</div>
                   <div>
-                    <a href="./custom-instructions.txt"><strong>custom-instructions.txt</strong></a>
+                    <div class="file-row-head">
+                      <a href="./custom-instructions.txt"><strong>custom-instructions.txt</strong></a>
+                      <button
+                        class="mini-copy"
+                        type="button"
+                        data-copy-src="./custom-instructions.txt"
+                      >
+                        コピー
+                      </button>
+                    </div>
                     <span>公式欄に入れているカスタム指示の全文控え</span>
                   </div>
                 </div>
@@ -667,5 +748,51 @@
         秘密の設定ファイルではありません。
       </footer>
     </div>
+    <script>
+      const copyStatus = document.getElementById("copy-status");
+
+      async function copyTextFromFile(path) {
+        const response = await fetch(path, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("fetch failed");
+        }
+        const text = await response.text();
+        await navigator.clipboard.writeText(text);
+      }
+
+      async function handleCopyClick(event) {
+        const button = event.target.closest("[data-copy-src]");
+        if (!button) {
+          return;
+        }
+
+        const path = button.getAttribute("data-copy-src");
+        const originalText = button.textContent.trim();
+
+        button.disabled = true;
+        button.textContent = "コピー中...";
+
+        try {
+          await copyTextFromFile(path);
+          button.textContent = "コピーした";
+          if (copyStatus) {
+            copyStatus.textContent = `${path.replace("./", "")} をクリップボードにコピーしました。`;
+          }
+        } catch (error) {
+          button.textContent = "失敗";
+          if (copyStatus) {
+            copyStatus.textContent =
+              "コピーに失敗しました。ファイルを開いて手動でコピーしてください。";
+          }
+        } finally {
+          window.setTimeout(() => {
+            button.disabled = false;
+            button.textContent = originalText;
+          }, 1600);
+        }
+      }
+
+      document.addEventListener("click", handleCopyClick);
+    </script>
   </body>
   </html>
