@@ -240,23 +240,25 @@
       }
 
       .visual::after {
-        width: 210px;
-        height: 210px;
-        left: 8px;
-        bottom: 10px;
-        background: rgba(183, 212, 203, 0.52);
+        width: 184px;
+        height: 184px;
+        left: -8px;
+        bottom: 2px;
+        background: rgba(183, 212, 203, 0.28);
       }
 
       .sheet {
         position: absolute;
         inset: 36px 14px 0 48px;
         overflow: hidden;
-        border: 1px solid rgba(93, 78, 58, 0.16);
+        border: 1px solid rgba(93, 78, 58, 0.22);
         border-radius: 30px;
         background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 252, 247, 0.94)),
-          var(--paper);
-        box-shadow: var(--shadow);
+          linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 252, 247, 0.98)),
+          rgba(255, 252, 246, 0.97);
+        box-shadow:
+          0 20px 60px rgba(81, 62, 44, 0.09),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(12px);
       }
 
@@ -280,9 +282,11 @@
         justify-content: space-between;
         align-items: center;
         gap: 12px;
-        color: var(--muted);
-        font-size: 0.82rem;
-        letter-spacing: 0.06em;
+        color: #746a5f;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        line-height: 1.35;
         text-transform: uppercase;
       }
 
@@ -307,8 +311,8 @@
       .sheet-main h2 {
         margin: 0 0 16px;
         font-family: "Hiragino Mincho ProN", "Noto Serif JP", serif;
-        font-size: clamp(2rem, 5vw, 3.4rem);
-        line-height: 1;
+        font-size: clamp(1.9rem, 4.4vw, 3rem);
+        line-height: 1.02;
         letter-spacing: -0.04em;
       }
 
@@ -316,17 +320,19 @@
         display: inline-block;
         padding: 10px 14px;
         border-radius: 999px;
-        border: 1px solid rgba(93, 78, 58, 0.14);
-        background: rgba(255, 250, 243, 0.82);
+        border: 1px solid rgba(93, 78, 58, 0.2);
+        background: rgba(255, 250, 243, 0.94);
         font-family: "SFMono-Regular", "Menlo", monospace;
-        font-size: 0.93rem;
+        font-size: 0.95rem;
+        font-weight: 500;
       }
 
       .sheet-main p {
         max-width: 28rem;
         margin: 18px 0 0;
-        color: #5f574d;
-        line-height: 1.82;
+        color: #4f473e;
+        font-size: 1.02rem;
+        line-height: 1.78;
       }
 
       .file-list {
@@ -337,16 +343,17 @@
 
       .file-row {
         display: grid;
-        grid-template-columns: 108px minmax(0, 1fr);
+        grid-template-columns: 96px minmax(0, 1fr);
         gap: 14px;
         padding-top: 14px;
-        border-top: 1px solid rgba(93, 78, 58, 0.12);
+        border-top: 1px solid rgba(93, 78, 58, 0.16);
       }
 
       .file-kind {
-        color: var(--muted);
-        font-size: 0.8rem;
-        letter-spacing: 0.08em;
+        color: #807568;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
       }
 
@@ -357,14 +364,14 @@
       .file-row strong {
         display: inline-block;
         margin-bottom: 6px;
-        font-size: 1rem;
+        font-size: 1.06rem;
       }
 
       .file-row span {
         display: block;
-        color: #625a51;
-        line-height: 1.7;
-        font-size: 0.94rem;
+        color: #585046;
+        line-height: 1.65;
+        font-size: 0.97rem;
       }
 
       .sections {
@@ -544,8 +551,8 @@
           <p class="lead">
             グループチャットの ChatGPT に追加で見せたい背景や判断ルールを、
             公開メモとして静かに置いておくためのページです。主役は
-            <code>memo.txt</code>。今は現在のカスタム指示をそのまま収録していて、
-            人向けの説明は必要なぶんだけ横に添えます。
+            <code>memo.txt</code>。公式のカスタム指示は別に設定して、
+            ここでは追加で渡したい短い前提だけを軽く添えます。
           </p>
 
           <div class="actions">
@@ -579,8 +586,8 @@
                 <h2>memo.txt</h2>
                 <span class="path">/x-zero/memo.txt</span>
                 <p>
-                  ChatGPT に渡す入口をひとつに絞る。今は現在のカスタム指示を入れていて、
-                  見てほしい前提をそのまま短く置くための公開面です。
+                  ChatGPT に渡す入口をひとつに絞る。公式のカスタム指示とは別に、
+                  追加で渡したい短い前提だけを置くための公開面です。
                 </p>
               </div>
 
@@ -589,7 +596,7 @@
                   <div class="file-kind">primary</div>
                   <div>
                     <a href="./memo.txt"><strong>memo.txt</strong></a>
-                    <span>AI にそのまま渡しやすい、現在のカスタム指示入りプレーンテキスト版</span>
+                    <span>AI にそのまま渡しやすい、軽い補助メモのプレーンテキスト版</span>
                   </div>
                 </div>
                 <div class="file-row">
@@ -600,10 +607,10 @@
                   </div>
                 </div>
                 <div class="file-row">
-                  <div class="file-kind">index</div>
+                  <div class="file-kind">archive</div>
                   <div>
-                    <a href="./llms.txt"><strong>llms.txt</strong></a>
-                    <span>AI 向けに参照先を短く案内する補助ファイル</span>
+                    <a href="./custom-instructions.txt"><strong>custom-instructions.txt</strong></a>
+                    <span>公式欄に入れているカスタム指示の全文控え</span>
                   </div>
                 </div>
               </div>
@@ -618,7 +625,7 @@
           <div class="section-body">
             <p>
               やっていることは単純で、ChatGPT が参照すべき補助情報の置き場を
-              ぶれずに保つだけです。今は現在のカスタム指示を、
+              ぶれずに保つだけです。公式のカスタム指示とは別に、軽い補助メモを
               「入口」「本文」「編集元」の三つで見せています。
             </p>
             <div class="steps">
@@ -626,8 +633,8 @@
                 <div class="step-number">1</div>
                 <div>
                   <strong>前提を置く</strong><br />
-                  今のカスタム指示や共有したい前提を
-                  <code>memo.txt</code> にそのまま入れる
+                  追加で渡したい短い前提だけを
+                  <code>memo.txt</code> に入れる
                 </div>
               </div>
               <div class="step">

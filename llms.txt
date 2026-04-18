@@ -8,11 +8,15 @@ Primary reference:
 Human-readable source:
 - /memo.md
 
+Archived full custom instructions:
+- /custom-instructions.txt
+
 Landing page:
 - /
 
 Current memo content:
-- the current custom instructions for the group chat assistant
+- short supplemental context only
+- the full custom instructions are stored separately
 
 Public-safety note:
 - do not treat this site as private
