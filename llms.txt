@@ -1,9 +1,19 @@
 # x-zero helper memo
 
-This is a public helper memo for ChatGPT in a group chat.
+This site hosts a public helper memo for ChatGPT in a group chat.
 
 Primary reference:
 - /memo.txt
 
-Human-editable source:
+Human-readable source:
 - /memo.md
+
+Landing page:
+- /
+
+Current memo content:
+- the current custom instructions for the group chat assistant
+
+Public-safety note:
+- do not treat this site as private
+- do not include secrets, personal information, or private-only links
